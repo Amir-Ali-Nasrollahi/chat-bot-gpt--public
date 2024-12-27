@@ -4,26 +4,29 @@
 namespace Controller;
 use Core\Controller;
 
-class Main_Controller extends Controller{
+class Main_Controller extends Controller
+{
 	
 	private int $chat_id;
-	private array $value;
+	private array $button = [['analysis'],["about me", "donate"]];
+	private string $text;
 
 
-	public function start($request) {
-		$this->value = [
-			['just watching'],["long position", "short position"]
-		];
+	public function start(array $request) {
+
 		$this->chat_id = $request['message']['chat']['id'];
-		$this->sendMessage($this->chat_id, "دلقک شدی بات رو ران کردی",$this->value );
+
+		$this->text = "hi, how can I help you ?";
+
+		$this->sendMessage($this->chat_id, $this->text, $this->button);
 
 	}
-	public function undefind($request){
-		$this->value = [
-			['first_button'],["second_button", "thirth_button"]
-		];
+
+
+	public function undefind(array $request){
 		$this->chat_id = $request['message']['chat']['id'];
-		$this->sendMessage($this->chat_id,"tell me a valid command",$this->value );
+
+		$this->sendMessage($this->chat_id,"tell me a valid command",$this->button );
 	}
 
 

@@ -1,0 +1,8 @@
+{
+    "command_list" : {
+        "شروع" : "/new",
+        "analysis":"/analysis",
+        "about me":"/about_me",
+        "donate":"/donate"
+    }
+}

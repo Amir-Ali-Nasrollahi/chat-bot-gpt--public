@@ -21,7 +21,8 @@ abstract class Controller
 		curl_exec($ch);
 		curl_close($ch);
 	}
-	public function sendMessage(int $chat_id, string $text, array $keyboard): void
+
+	public function sendMessage(int $chat_id, string $text, array $keyboard = []): void
 	{
 		$this->connection([
 			"chat_id" => $chat_id, 
@@ -33,4 +34,5 @@ abstract class Controller
 			])
 		]);
 	}
+
 }
