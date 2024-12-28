@@ -17,9 +17,11 @@ final class App
 
 		// if($value['message']['text'] == "/start")
 		include_once("./controller/Main_Controller.php");
+
 		
 		
-		$this->method = $this->check_validity($value['message']['text']);
+		if(isset($value['message']['text']))
+			$this->method = $this->check_validity($value['message']['text']);
 		
 
 		call_user_func_array([new Main_Controller(), $this->method], [$value]);
