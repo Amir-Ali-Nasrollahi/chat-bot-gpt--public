@@ -15,8 +15,8 @@ final class App
 
 
 
-		if($value['message']['text'] == "/start")
-			include_once("./controller/Main_Controller.php");
+		// if($value['message']['text'] == "/start")
+		include_once("./controller/Main_Controller.php");
 		
 		
 		$this->method = $this->check_validity($value['message']['text']);
@@ -29,6 +29,7 @@ final class App
 	public function check_validity(string $request_method)
 	{
 
+		// $read = file_get_contents('./app.json');
 		$file = fopen("./app.json", "r");
 
 		$read = fread($file, filesize("./app.json"));
