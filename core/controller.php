@@ -10,19 +10,16 @@ abstract class Controller
 		return new (ucfirst($table_name));
 	}
 
-	public function connection(array|string $data, string $address, string $auth = "")
+	public function connection(array|string $data, string $address)
 	{
 		$ch = curl_init($address);
 		curl_setopt_array($ch, [
 			CURLOPT_POST => true,
 			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_POSTFIELDS => $data,
-			// CURLOPT_HTTPHEADER => ["Content-Type: application/json", $auth],
+			CURLOPT_POSTFIELDS => $data
 		]);
-		$response = curl_exec($ch);
+		curl_exec($ch);
 		curl_close($ch);
-
-		return $response;
 	}
 
 	public function sendMessage(int $chat_id, string $text, array $keyboard = []): void
@@ -38,9 +35,25 @@ abstract class Controller
 		], TELEGRAM_URL);
 	}
 
-	public function useGPT()
+
+	public function connectionForAi(array|string $data, string $address, string $auth = "")
 	{
-		$response = $this->connection(json_encode([
+		$ch = curl_init($address);
+		curl_setopt_array($ch, [
+			CURLOPT_POST => true,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_POSTFIELDS => $data,
+			CURLOPT_HTTPHEADER => ["Content-Type: application/json", $auth],
+		]);
+		$response = curl_exec($ch);
+		curl_close($ch);
+
+		return $response;
+	}
+
+	public function useGPT($url)
+	{
+		$response = $this->connectionForAi(json_encode([
 			'model' => 'gpt-4o-mini',
 			'store' => true,
 			'messages' => [
@@ -53,7 +66,7 @@ abstract class Controller
 						],
 						[
 							'type' => 'image_url',
-							'image_url' => ['url' => 'https://amiralinasrollahi.ir/assets/bitcoin.png']
+							'image_url' => ['url' => $url]
 						]
 					]
 

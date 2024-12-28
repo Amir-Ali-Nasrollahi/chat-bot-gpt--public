@@ -24,6 +24,11 @@ final class App
 			$this->method = $this->check_validity($value['message']['text']);
 		
 
+		if(isset($value['message']['photo'])){
+			$caption = isset($value['message']['caption']) ? $value['message']['caption'] :'/gpt';
+			$this->method = $this->check_validity($caption);
+		}
+
 		call_user_func_array([new Main_Controller(), $this->method], [$value]);
 	}
 
@@ -31,12 +36,12 @@ final class App
 	public function check_validity(string $request_method)
 	{
 
-		// $read = file_get_contents('./app.json');
-		$file = fopen("./app.json", "r");
+		$read = file_get_contents('./app.json');
+		// $file = fopen("./app.json", "r");
 
-		$read = fread($file, filesize("./app.json"));
+		// $read = fread($file, filesize("./app.json"));
 
-		fclose($file);
+		// fclose($file);
 
         $read = json_decode($read, 1)['command_list'];
 		
