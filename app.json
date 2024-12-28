@@ -3,6 +3,7 @@
         "شروع" : "/new",
         "analysis":"/analysis",
         "about me":"/about_me",
-        "donate":"/donate"
+        "donate":"/donate",
+        "اهدا کردن":"/donate"
     }
 }

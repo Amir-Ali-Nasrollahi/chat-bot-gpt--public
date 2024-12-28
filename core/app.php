@@ -29,9 +29,9 @@ final class App
 	public function check_validity(string $request_method)
 	{
 
-		$file = fopen("../app.json", "r");
+		$file = fopen("./app.json", "r");
 
-		$read = fread($file, filesize("../app.json"));
+		$read = fread($file, filesize("./app.json"));
 
 		fclose($file);
 
