@@ -4,13 +4,12 @@ namespace Core;
 
 abstract class Controller
 {
-	public static function DbConnection($table_name)
-	{
 
-		return new (ucfirst($table_name));
-	}
-
-	public function connection(array|string $data, string $address)
+	// public static function DbConnection($table_name)
+	// {
+	// 	return new (ucfirst($table_name));
+	// }
+	public function connection($data, string $address)
 	{
 		$ch = curl_init($address);
 		curl_setopt_array($ch, [
@@ -30,13 +29,13 @@ abstract class Controller
 			"reply_markup" => json_encode([
 				"keyboard" => $keyboard,
 				'resize_keyboard' => true,
-				'is_persistent' => true
+				'is_persistent' => false
 			])
 		], TELEGRAM_URL);
 	}
 
 
-	public function connectionForAi(array|string $data, string $address, string $auth = "")
+	public function connectionForAi($data, string $address, string $auth = "")
 	{
 		$ch = curl_init($address);
 		curl_setopt_array($ch, [
@@ -51,9 +50,18 @@ abstract class Controller
 		return $response;
 	}
 
-	public function useGPT($url)
+	public function useGPT($url = null, $text)
 	{
-		$response = $this->connectionForAi(json_encode([
+
+		/**
+		* 
+		* i know i could use just `if` insted of `if & else` but i think its  can be better for who want read this code(its easy for reader),
+		*
+		**/
+
+
+		if (empty($url))
+			$response = $this->connectionForAi(json_encode([
 			'model' => 'gpt-4o-mini',
 			'store' => true,
 			'messages' => [
@@ -62,7 +70,7 @@ abstract class Controller
 					'content' => [
 						[
 							'type' => 'text',
-							'text' => "توی این نمودار نقطه اخرین حمایت و مقاومت نمودار کجا میشه؟ و اینکه ایا روندش صعودیه یا نزولی ؟‌ و چه پوزیشنی بگیرم؟ اگه میشه این هارو تیتر وار بهم بگو"
+							'text' => $text
 						],
 						[
 							'type' => 'image_url',
@@ -74,23 +82,20 @@ abstract class Controller
 			]
 		]), GPT_URL,  "Authorization: " . GPT_TOKEN);
 
-		return $response;
-	}
-
-	public function useGemini($url)
-	{
+		else
 		$response = $this->connectionForAi(json_encode([
-			'multipart' => [
+			'model' => 'gpt-4o-mini',
+			'store' => true,
+			'messages' => [
 				[
-					'name' => 'image',
-					'contents' => file_get_contents($url),
-					'file_name' => $url
-				],[
-					'name' => 'analysis_type'
+					'role' => 'user',
+					'content' => $text
+
 				]
 			]
-		]), GEMINI_URL,  "Authorization: " . "Bearer ".GEMINI_TOKEN);
-
+		]), GPT_URL,  "Authorization: " . GPT_TOKEN);
+		
 		return $response;
 	}
+
 }

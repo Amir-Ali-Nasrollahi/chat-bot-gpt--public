@@ -4,11 +4,6 @@
         "analysis":"/analysis",
         "about me":"/about_me",
         "donate":"/donate",
-        "اهدا کردن":"/donate",
-        "GPT" : "/GPT",
-        "Gemini" : "/Gemini",
-        "/gpt" : "/GPT",
-        "/gemini" : "/Gemini",
-        "Back" : "/Back"
+        "اهدا کردن":"/donate"
     }
 }
