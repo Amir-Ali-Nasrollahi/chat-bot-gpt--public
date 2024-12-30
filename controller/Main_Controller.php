@@ -8,9 +8,9 @@ use Core\Controller;
 class Main_Controller extends Controller
 {
 
-	private int $chat_id;
-	private array $button = [['analysis'], ["about me", "donate"]];
-	private string $text = "";
+	private $chat_id;
+	private $button = [['analysis'], ["about me", "donate"]];
+	private $text = "";
 
 
 	public function start(array $request)
@@ -47,9 +47,9 @@ class Main_Controller extends Controller
 	{
 		$this->chat_id = $request["message"]["chat"]['id'];
 
-		$photo_id = $request['message']['photo']['file_id'];
+		$photo_id = $request['message']['photo'][0]['file_id'];
 		
-		$file_url = IMAGE_URL . $photo_id;
+		$file_url = TEL_URL . "getFile?file_id=" . $photo_id;
 
 		$response = json_decode(file_get_contents($file_url), true);
 
@@ -57,15 +57,20 @@ class Main_Controller extends Controller
 
 
 		// $photo_url =;
-		$file_name = time() . 'amirali.jpg';
-		file_put_contents(URL. "public/".$file_name,file_get_contents( TEL_URL . $file_path));
+		//$file_name = time() . 'amirali.jpg';
+// 		file_put_contents(URL. "public/".$file_name);
 
-		$res = $this->useGPT(URL."public/" . $file_name);
+		//$res = $this->useGPT(URL."public/" . $file_name);
 		
-		$this->text = $res;
+		
+		$res = $this->useGPT("https://api.telegram.org/file/".TOKEN."/" . $file_path);
+		
+		
+// 		file_get_contents( TEL_URL . $file_path)
+		$this->text = json_decode($res, true)['choices'][0]['message']['content'];
 
 
-		$this->button = [['Back']];
+		$this->button = [['back']];
 
 		$this->sendMessage($this->chat_id, $this->text, $this->button);
 	}

@@ -76,4 +76,21 @@ abstract class Controller
 
 		return $response;
 	}
+
+	public function useGemini($url)
+	{
+		$response = $this->connectionForAi(json_encode([
+			'multipart' => [
+				[
+					'name' => 'image',
+					'contents' => file_get_contents($url),
+					'file_name' => $url
+				],[
+					'name' => 'analysis_type'
+				]
+			]
+		]), GEMINI_URL,  "Authorization: " . "Bearer ".GEMINI_TOKEN);
+
+		return $response;
+	}
 }

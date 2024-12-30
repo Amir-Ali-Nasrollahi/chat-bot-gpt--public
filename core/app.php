@@ -19,15 +19,13 @@ final class App
 		include_once("./controller/Main_Controller.php");
 
 		
-		
 		if(isset($value['message']['text']))
 			$this->method = $this->check_validity($value['message']['text']);
 		
-
-		if(isset($value['message']['photo'])){
+		elseif (isset($value['message']['photo']))
 			$caption = isset($value['message']['caption']) ? $value['message']['caption'] :'/gpt';
 			$this->method = $this->check_validity($caption);
-		}
+		
 
 		call_user_func_array([new Main_Controller(), $this->method], [$value]);
 	}
