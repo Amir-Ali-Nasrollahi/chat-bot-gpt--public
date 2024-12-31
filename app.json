@@ -2,8 +2,9 @@
     "command_list" : {
         "شروع" : "/start",
         "analysis":"/analysis",
-        "about me":"/about_me",
+        "about me":"/aboutMe",
         "donate":"/donate",
-        "اهدا کردن":"/donate"
+        "اهدا کردن":"/donate",
+        "برگشتن":"/back"
     }
 }

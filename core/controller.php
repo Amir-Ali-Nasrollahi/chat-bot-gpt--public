@@ -60,7 +60,7 @@ abstract class Controller
 		**/
 
 
-		if (empty($url))
+		if (!empty($url))
 			$response = $this->connectionForAi(json_encode([
 			'model' => 'gpt-4o-mini',
 			'store' => true,

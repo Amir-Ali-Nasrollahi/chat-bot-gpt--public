@@ -5,7 +5,7 @@ namespace Core;
 use Controller\Main_Controller;
 final class App
 {
-	private string $method = "undefind";
+	private $method = "undefind";
 
 	public function __construct()
 	{
@@ -16,10 +16,10 @@ final class App
 
 
 		
-		if(!empty($value['message']['text']))
+		if(isset($value['message']['text']))
 			$this->method = $this->check_validity($value['message']['text']);
 		
-		elseif (!empty($value['message']['photo']))
+		elseif (isset($value['message']['photo']))
 			$this->method = "GPT_image";
 		
 

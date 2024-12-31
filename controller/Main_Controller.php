@@ -15,14 +15,12 @@ class Main_Controller extends Controller
 
 	public function start(array $request)
 	{
-		// file_put_contents("", $this->text);
 
 		$this->chat_id = $request['message']['chat']['id'];
 
-		// $this->text = "سلام ، چطور میتونم کمکت کنم ؟‌؟";
-		// if($request['message'])
-
-		$this->sendMessage($this->chat_id, json_encode($request), $this->button);
+		$this->text = "سلام ، چطور میتونم کمکت کنم ؟‌؟";
+		
+		$this->sendMessage($this->chat_id, $this->text, $this->button);
 	}
 
 
@@ -51,9 +49,8 @@ class Main_Controller extends Controller
 	{
 		$this->chat_id = $request['message']['chat']['id'];
 
-		$res = $this->useGPT(text:$request['message']['text']);
+		$res = $this->useGPT(null,$request['message']['text']);
 		$this->text = json_decode($res, true)['choices'][0]['message']['content'];
-		
 		$this->sendMessage($this->chat_id, $this->text, $this->button);
 
 	}
@@ -64,8 +61,15 @@ class Main_Controller extends Controller
 
 		$this->sendMessage($this->chat_id, "لطفا یه دستور معتبر بهم بدید", $this->button);
 	}
+	public function back(array $request) {
+	    $this->chat_id = $request['message']['chat']['id'];
+	    $this->text = "یه پیام بفرس تا هوش مصنوعی جوابت رو بده :) یا از یکی از دکمه ها استفاده کن";
+    	$this->sendMessage($this->chat_id, $this->text, $this->button);
 
-	public function about_me(array $request) {
+	    
+	}
+
+	public function aboutMe(array $request) {
 	
 		$this->chat_id = $request['message']['chat']['id'];
 
@@ -81,7 +85,7 @@ class Main_Controller extends Controller
 		";
 
 		$this->button = [['برگشتن']];
-		$this->sendMessage($this->chat_id, "لطفا یه دستور معتبر بهم بدید", $this->button);
+		$this->sendMessage($this->chat_id, $this->text, $this->button);
 		
 	}
 
@@ -97,7 +101,7 @@ class Main_Controller extends Controller
 		😊😊 فقط ازش استفاده کن";
 
 		$this->button = [['برگشتن']];
-		$this->sendMessage($this->chat_id, "لطفا یه دستور معتبر بهم بدید", $this->button);
-			
+    	$this->sendMessage($this->chat_id, $this->text, $this->button);
+	
 	}
 }
