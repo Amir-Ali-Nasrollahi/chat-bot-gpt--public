@@ -24,3 +24,4 @@ abstract class DB {
 	abstract public function select();
 
 }
+

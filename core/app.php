@@ -16,10 +16,10 @@ final class App
 
 
 		
-		if(isset($value['message']['text']))
+		if(!empty($value['message']['text']))
 			$this->method = $this->check_validity($value['message']['text']);
 		
-		elseif (isset($value['message']['photo']))
+		elseif (!empty($value['message']['photo']))
 			$this->method = "GPT_image";
 		
 

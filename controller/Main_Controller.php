@@ -15,6 +15,7 @@ class Main_Controller extends Controller
 
 	public function start(array $request)
 	{
+		// file_put_contents("", $this->text);
 
 		$this->chat_id = $request['message']['chat']['id'];
 
@@ -51,7 +52,8 @@ class Main_Controller extends Controller
 		$this->chat_id = $request['message']['chat']['id'];
 
 		$res = $this->useGPT(text:$request['message']['text']);
-		$this->text = $res['choices'][0]['message']['content'];
+		$this->text = json_decode($res, true)['choices'][0]['message']['content'];
+		
 		$this->sendMessage($this->chat_id, $this->text, $this->button);
 
 	}
