@@ -13,6 +13,6 @@ define("TELEGRAM_URL", $url ."sendMessage");
 
 
 
-$gpt_token = "Bearer YOUR GPT TOKEN";
+$gpt_token = "YOUR GPT TOKEN";
 define("GPT_TOKEN", $gpt_token);
 define("GPT_URL", "YOUR GPT URL");
