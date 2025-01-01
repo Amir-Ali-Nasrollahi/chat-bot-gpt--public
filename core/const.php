@@ -15,7 +15,4 @@ define("TELEGRAM_URL", $url ."sendMessage");
 
 $gpt_token = "Bearer YOUR GPT TOKEN";
 define("GPT_TOKEN", $gpt_token);
-define("GPT_URL", "https://api.openai.com/v1/chat/completions");
-
-
-
+define("GPT_URL", "YOUR GPT URL");
